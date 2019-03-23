@@ -109,6 +109,9 @@ public class TypeUtils {
         if (type.isMarkedNullable()) {
             return true;
         }
+        if (DescriptorUtils.isEnumClass(type.getConstructor().getDeclarationDescriptor())) {
+            return false;
+        }
         if (!type.getConstructor().isFinal()) {
             return true;
         }

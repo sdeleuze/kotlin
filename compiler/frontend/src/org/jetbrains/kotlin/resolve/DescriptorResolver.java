@@ -560,12 +560,12 @@ public class DescriptorResolver {
         }
 
         if (!(declaration instanceof KtClass)) {
-            checkUpperBoundTypes(trace, upperBoundCheckRequests);
+            checkUpperBoundTypes(trace, upperBoundCheckRequests, declaration.hasModifier(KtTokens.OVERRIDE_KEYWORD));
             checkNamesInConstraints(declaration, descriptor, scope, trace);
         }
     }
 
-    public static void checkUpperBoundTypes(@NotNull BindingTrace trace, @NotNull List<UpperBoundCheckRequest> requests) {
+    public static void checkUpperBoundTypes(@NotNull BindingTrace trace, @NotNull List<UpperBoundCheckRequest> requests, boolean isOverride) {
         if (requests.isEmpty()) return;
 
         Set<Name> classBoundEncountered = new HashSet<>();
@@ -593,7 +593,7 @@ public class DescriptorResolver {
                 }
             }
 
-            checkUpperBoundType(upperBoundElement, upperBound, trace);
+            checkUpperBoundType(upperBoundElement, upperBound, trace, isOverride);
         }
     }
 
@@ -641,9 +641,10 @@ public class DescriptorResolver {
     public static void checkUpperBoundType(
             KtTypeReference upperBound,
             @NotNull KotlinType upperBoundType,
-            BindingTrace trace
+            BindingTrace trace,
+            boolean isOverride
     ) {
-        if (!TypeUtils.canHaveSubtypes(KotlinTypeChecker.DEFAULT, upperBoundType)) {
+        if (!isOverride && !TypeUtils.canHaveSubtypes(KotlinTypeChecker.DEFAULT, upperBoundType)) {
             trace.report(FINAL_UPPER_BOUND.on(upperBound, upperBoundType));
         }
         if (DynamicTypesKt.isDynamic(upperBoundType)) {
