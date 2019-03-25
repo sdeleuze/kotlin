@@ -66,7 +66,7 @@ fun selectElement(editor: Editor,
 
         if (PsiTreeUtil.getParentOfType(firstElement, KtLiteralStringTemplateEntry::class.java, KtEscapeStringTemplateEntry::class.java) == null
             && PsiTreeUtil.getParentOfType(lastElement, KtLiteralStringTemplateEntry::class.java, KtEscapeStringTemplateEntry::class.java) == null) {
-            firstElement = firstElement.getNextSiblingIgnoringWhitespaceAndComments(true)!!
+            firstElement = firstElement.getNextSiblingIgnoringWhitespaceAndComments(true)!! //TODO EA-126701
             lastElement = lastElement.getPrevSiblingIgnoringWhitespaceAndComments(true)!!
             selectionStart = firstElement.textRange.startOffset
             selectionEnd = lastElement.textRange.endOffset
