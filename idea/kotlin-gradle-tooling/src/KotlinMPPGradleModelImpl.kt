@@ -85,7 +85,7 @@ data class KotlinCompilationImpl(
     // create deep copy
     constructor(kotlinCompilation: KotlinCompilation) : this(
         kotlinCompilation.name,
-        kotlinCompilation.sourceSets.map { KotlinSourceSetImpl(it) }.toList(),
+        kotlinCompilation.sourceSets.map { if (it.name.contains("android")) it else KotlinSourceSetImpl(it) }.toList(),
         kotlinCompilation.dependencies.map { it.deepCopy() }.toSet(),
         KotlinCompilationOutputImpl(kotlinCompilation.output),
         KotlinCompilationArgumentsImpl(kotlinCompilation.arguments),
