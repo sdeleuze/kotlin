@@ -4,7 +4,7 @@ This library provides an API to read and modify metadata of binary files generat
 
 ## Usage
 
-To use this library in your project, add the kotlinx repository at https://kotlin.bintray.com/kotlinx, and a dependency on `org.jetbrains.kotlinx:kotlinx-metadata-jvm:$kotlinx_metadata_version` (where `kotlinx_metadata_version` is the version of the library).
+To use this library in your project, add a dependency on `org.jetbrains.kotlinx:kotlinx-metadata-jvm:$kotlinx_metadata_version` (where `kotlinx_metadata_version` is the version of the library).
 
 Example usage in Maven:
 
@@ -17,13 +17,6 @@ Example usage in Maven:
             <version>${kotlinx_metadata_version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>bintray-kotlin-kotlinx</id>
-            <name>bintray</name>
-            <url>https://kotlin.bintray.com/kotlinx</url>
-        </repository>
-    </repositories>
     ...
 </project>
 ```
@@ -33,7 +26,6 @@ Example usage in Gradle:
 ```
 repositories {
     mavenCentral()
-    maven { url "https://kotlin.bintray.com/kotlinx/" }
 }
 
 dependencies {
